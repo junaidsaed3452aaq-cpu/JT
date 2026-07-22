@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junaid Tech Point</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="progress-bar"></div>
+
+<!-- Cursor -->
+<div class="cursor"></div>
+
+<!-- Background -->
+<div class="background">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+</div>
+
+<!--================ WELCOME / LOGIN MODAL ================-->
+<div id="auth-modal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-controls">
+            <button id="modal-trans-btn" class="ctrl-btn" onclick="toggleModalLanguage()">اردو</button>
+        </div>
+        
+        <div id="modal-content-en">
+            <h2>Welcome to Junaid Tech</h2>
+            <p class="modal-subtitle">Create your secure ID or login with your existing ID to access your personalized workspace.</p>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="switchTab('create')">Create New ID</button>
+                <button class="tab-btn" onclick="switchTab('login')">Existing Login</button>
+            </div>
+
+            <div id="create-section" class="tab-content active">
+                <input type="text" id="user-name-input" placeholder="Enter your name" autocomplete="off">
+                <button class="modal-action-btn" onclick="createUserId()">Create ID</button>
+            </div>
+
+            <div id="login-section" class="tab-content">
+                <input type="text" id="login-id-input" placeholder="Enter your 6-digit ID" autocomplete="off">
+                <button class="modal-action-btn" onclick="loginWithId()">Login</button>
+            </div>
+        </div>
+
+        <div id="modal-content-ur" style="display: none; direction: rtl; text-align: right;">
+            <h2>جنید ٹیک پوائنٹ میں خوش آمدید</h2>
+            <p class="modal-subtitle">اپنے ذاتی ڈیٹا اور ڈیش بورڈ تک رسائی کے لیے نئی آئی ڈی بنائیں یا اپنی پرانی آئی ڈی سے لاگ ان کریں۔</p>
+            
+            <div class="modal-tabs" style="direction: ltr;">
+                <button class="tab-btn active" onclick="switchTab('create')">نئی آئی ڈی بنائیں</button>
+                <button class="tab-btn" onclick="switchTab('login')">پرانا لاگ ان</button>
+            </div>
+
+            <div id="create-section-ur" class="tab-content active">
+                <input type="text" id="user-name-input-ur" placeholder="اپنا نام درج کریں" autocomplete="off" style="direction: rtl;">
+                <button class="modal-action-btn" onclick="createUserId()">آئی ڈی بنائیں</button>
+            </div>
+
+            <div id="login-section-ur" class="tab-content">
+                <input type="text" id="login-id-input-ur" placeholder="اپنی 6 ہندسوں کی آئی ڈی درج کریں" autocomplete="off" style="direction: rtl;">
+                <button class="modal-action-btn" onclick="loginWithId()">لاگ ان کریں</button>
+            </div>
+        </div>
+
+        <div id="result-box" class="result-box" style="display: none;">
+            <p id="result-msg-en">Please remember this ID carefully. You will use this ID to log back into your data next time!</p>
+            <p id="result-msg-ur" style="display: none; direction: rtl;">براہ کرم اس آئی ڈی کو اچھی طرح یاد رکھیں۔ اگلی بار آپ اسی آئی ڈی سے اپنے ڈیٹا کے ساتھ لاگ ان ہوں گے!</p>
+            
+            <div class="id-display-container">
+                <span id="generated-id-text">------</span>
+                <button class="copy-btn" onclick="copyGeneratedId()"><i class="fa-regular fa-copy"></i> Copy</button>
+            </div>
+            <button class="modal-action-btn enter-site-btn" onclick="enterWebsite()">Enter Website</button>
+        </div>
+    </div>
+</div>
+
+<!--================ CREATE APP MESSAGE MODAL ================-->
+<div id="app-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card app-card">
+        <button class="close-app-modal" onclick="closeAppModal()"><i class="fa-solid fa-xmark"></i></button>
+        <h2>Create Your App</h2>
+        <p class="modal-subtitle">Send your app requirements or message to Junaid Tech. Your messages will appear on your page below.</p>
+        
+        <textarea id="app-message-input" placeholder="Type your app details, features, or message here..." rows="4"></textarea>
+        <button class="modal-action-btn" onclick="sendAppMessage()">Send Message</button>
+    </div>
+</div>
+
+<!--================ NAVBAR ================-->
+<header>
+    <div class="logo">
+        JD
+    </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#windows">Windows</a>
+        <a href="#android">Android</a>
+        <a href="#ios">iOS Apps</a>
+        <a href="#websites">Websites</a>
+        <a href="#" class="nav-app-btn" onclick="openAppModal()"><i class="fa-solid fa-plus-circle"></i> Create Your App</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!--================ HERO ================-->
+<section class="hero" id="home">
+    <div class="hero-left">
+        <p class="small-title">
+            WELCOME TO
+        </p>
+        <h1 id="welcome-heading">
+            Junaid Tech Point
+        </h1>
+        <h2><span id="typing"></span></h2>
+        <p class="hero-text">
+            Flutter Developer<br>
+            Python Developer<br>
+            HTML CSS JavaScript<br>
+            Desktop Software<br>
+            Android Apps<br>
+            Artificial Intelligence
+        </p>
+    </div>
+
+    <div class="hero-right">
+        <div class="hero-card">
+            <div class="icon"><i class="fa-brands fa-flutter"></i></div>
+            <div class="icon"><i class="fa-brands fa-python"></i></div>
+            <div class="icon"><i class="fa-brands fa-html5"></i></div>
+            <div class="icon"><i class="fa-brands fa-css3-alt"></i></div>
+            <div class="icon"><i class="fa-brands fa-js"></i></div>
+            <div class="icon"><i class="fa-solid fa-code"></i></div>
+        </div>
+    </div>
+</section>
+
+<!--================ USER MESSAGES SECTION (Appears here) ================-->
+<section class="user-messages-section" id="user-messages">
+    <h2>Your App Requests & Messages</h2>
+    <div class="messages-container" id="messages-list-container">
+        <!-- Dynamic messages will load here -->
+        <p class="no-msg-text">No app messages sent yet. Click "Create Your App" above to send one!</p>
+    </div>
+</section>
+
+<!--================ ABOUT ================-->
+<section class="about" id="about">
+    <h2>About Me</h2>
+    <div class="about-box">
+        <div class="about-controls">
+            <button id="translate-btn" class="ctrl-btn" onclick="toggleTranslate()">اردو</button>
+            <button class="ctrl-btn" onclick="changeFontSize(1)">+</button>
+            <button class="ctrl-btn" onclick="changeFontSize(-1)">-</button>
+        </div>
+        <p id="about-text" class="about-text-content">
+            Assalam-o-Alaikum! Welcome to Junaid Tech. Here you can get custom applications built for Windows PC, Android, and iOS (iPhone), as well as professional websites. For all these services, feel free to contact us on WhatsApp at <i class="fa-brands fa-whatsapp" style="color: #25d366; margin-left: 3px; margin-right: 2px;"></i>+92 328 8773691.
+        </p>
+    </div>
+</section>
+
+<!--================ WINDOWS ================-->
+<section class="windows-section" id="windows">
+    <h2>Windows Software</h2>
+    <div class="category-box windows-theme" onclick="window.open('windows-software.html', '_blank')">
+        <div class="box-hint windows-btn">Open Windows Software</div>
+    </div>
+</section>
+
+<!--================ ANDROID ================-->
+<section class="android-section" id="android">
+    <h2>Android Apps</h2>
+    <div class="category-box android-theme" onclick="window.open('android-apps.html', '_blank')">
+        <div class="box-hint android-btn">Open Android Apps</div>
+    </div>
+</section>
+
+<!--================ IOS APPS ================-->
+<section class="ios-section" id="ios">
+    <h2>iOS Apps</h2>
+    <div class="category-box ios-theme" onclick="window.open('ios-apps.html', '_blank')">
+        <div class="box-hint ios-btn">Open iOS Apps</div>
+    </div>
+</section>
+
+<!--================ WEBSITES ================-->
+<section class="websites-section" id="websites">
+    <h2>Websites</h2>
+    <div class="category-box website-theme" onclick="window.open('websites.html', '_blank')">
+        <div class="box-hint website-btn">Open Websites Page</div>
+    </div>
+</section>
+
+<!--================ CONTACT ================-->
+<section class="contact" id="contact">
+    <h2>Contact</h2>
+    <div class="contact-box">
+        <p class="contact-text">WhatsApp Contact: <a href="https://wa.me/923288773691" target="_blank"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 5px;"></i>+92 328 8773691</a></p>
+    </div>
+</section>
+
+<!--================ FOOTER ================-->
+<footer>
+    © 2026 Junaid Developer - Junaid Tech Point
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
